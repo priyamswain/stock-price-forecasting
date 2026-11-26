@@ -22,7 +22,11 @@ app = FastAPI(title="StockCast API", version="1.0.0",
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "https://priyamswain.github.io",  # the live frontend on GitHub Pages
+    ],
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -104,17 +108,6 @@ async def forecast_csv(
     return _run(df, meta, horizon, test_days, model_list, lags, confidence, price_field, risk_free, currency)
 
 
-# --------------------------------------------------------------------------- #
-# Serve the built React app (frontend/dist) from the same server.
-# Used when deployed online; in local development Vite serves the frontend.
-# Mounted last so the /api routes above always win.
-# --------------------------------------------------------------------------- #
-import os
-from fastapi.staticfiles import StaticFiles
-
-FRONTEND_DIST = os.environ.get(
-    "FRONTEND_DIST",
-    os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "frontend", "dist"),
-)
-if os.path.isdir(FRONTEND_DIST):
-    app.mount("/", StaticFiles(directory=FRONTEND_DIST, html=True), name="frontend")
+@app.get("/")
+def root():
+    return {"app": "StockCast API", "docs": "/docs", "health": "/api/health"}

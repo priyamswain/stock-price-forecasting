@@ -5,7 +5,7 @@ import {
   PriceIndicatorChart, RsiChart, VolumeChart,
 } from './components/Charts.jsx'
 import { Card, ForecastTable, Kpi, ModelTable, MonthlyHeatmap, Signals, StatsGrid } from './components/Report.jsx'
-import { MODEL_COLORS, checkHealth, downloadFile, fmtDate, fmtMoney, fmtPct, isoDate, runForecast } from './utils.js'
+import { API, MODEL_COLORS, checkHealth, downloadFile, fmtDate, fmtMoney, fmtPct, isoDate, runForecast } from './utils.js'
 
 const FALLBACK_CATALOG = [
   { key: 'drift', name: 'Random Walk + Drift', description: 'Baseline: today + average daily change.' },
@@ -129,7 +129,7 @@ export default function App() {
     const ping = () => checkHealth().then(setApi)
     ping()
     const id = setInterval(ping, 15000)
-    fetch('/api/models').then((r) => (r.ok ? r.json() : null)).then((c) => { if (c) setCatalog(c) }).catch(() => {})
+    fetch(`${API}/api/models`).then((r) => (r.ok ? r.json() : null)).then((c) => { if (c) setCatalog(c) }).catch(() => {})
     return () => clearInterval(id)
   }, [])
 
@@ -156,7 +156,7 @@ export default function App() {
       <header className="topbar">
         <div className="brand"><span className="logo">◆</span> StockCast <span className="brand-sub">Price Forecasting Studio</span></div>
         <div className={'api ' + (api === null ? '' : api ? 'ok' : 'bad')}>
-          <span className="api-dot" />{api === null ? 'Checking API…' : api ? 'API connected' : 'API offline — start the backend'}
+          <span className="api-dot" />{api === null ? 'Checking API…' : api ? 'API connected' : 'Server waking up or offline — retrying…'}
         </div>
       </header>
 

@@ -1,6 +1,0 @@
-**/node_modules
-**/.venv
-**/__pycache__
-frontend/dist
-.git
-.DS_Store

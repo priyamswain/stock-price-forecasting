@@ -1,5 +1,9 @@
 // Shared helpers: colours, number formatting, API calls.
 
+// Backend address. Empty locally (Vite forwards /api to port 8000).
+// For GitHub Pages it comes from frontend/.env.production.
+export const API = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '')
+
 // Fixed colour per model (validated for colour-blind separation on the dark surface).
 export const MODEL_COLORS = {
   drift: '#338ced',
@@ -85,7 +89,7 @@ async function handle(res) {
 
 export async function checkHealth() {
   try {
-    const r = await fetch('/api/health')
+    const r = await fetch(`${API}/api/health`)
     return r.ok
   } catch (e) {
     return false
@@ -103,7 +107,7 @@ export async function runForecast(form) {
     currency: form.currency || null,
   }
   if (form.source === 'yahoo') {
-    const res = await fetch('/api/forecast', {
+    const res = await fetch(`${API}/api/forecast`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -124,6 +128,6 @@ export async function runForecast(form) {
     fd.append('start_date', form.start)
     fd.append('end_date', form.end)
   }
-  const res = await fetch('/api/forecast/csv', { method: 'POST', body: fd })
+  const res = await fetch(`${API}/api/forecast/csv`, { method: 'POST', body: fd })
   return handle(res)
 }

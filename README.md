@@ -1,7 +1,7 @@
 # StockCast: Stock Price Forecasting Studio
 
-### 🔗 Live demo: https://stock-price-forecasting.onrender.com
-*(Hosted on Render's free plan. If it has been idle, the first load takes about a minute while the server wakes up.)*
+### 🔗 Live demo: https://priyamswain.github.io/stock-price-forecasting/
+*(The frontend is on GitHub Pages and the backend is on Render's free plan. If the app hasn't been used for a while, the first forecast can take about a minute while the server wakes up.)*
 
 A full-stack stock price forecasting app. You choose the stock and all the settings in a web interface. A Python backend trains 6 forecasting models, grades them on data they have never seen, and returns a full report with forecasts, confidence bands, model comparison, technical indicators and risk statistics.
 
@@ -92,13 +92,27 @@ You don't need to install again. Use the two scripts:
 
 ---
 
-## Deploying online (free, on Render)
-The `Dockerfile` builds the React site and runs it together with the FastAPI backend in a single service.
+## Deploying online (no Docker)
+| Part | Where it runs | How it's updated |
+|---|---|---|
+| Frontend (React) | GitHub Pages | `npm run deploy` from Terminal |
+| Backend (FastAPI) | Render (free Python web service) | Automatically on every `git push` |
 
-1. Sign in at https://render.com with GitHub.
-2. Click **New → Web Service** and pick this repository.
-3. Render detects the Dockerfile. Choose the **Free** instance type and click **Create Web Service**.
-4. After about 5–10 minutes the app is live at `https://<service-name>.onrender.com`.
+**Backend (one time):** at https://render.com, sign in with GitHub and choose **New → Web Service**. Pick this repo and fill in:
+- Name: `stock-price-forecasting-api`
+- Language: Python 3
+- Root Directory: `backend`
+- Build Command: `pip install -r requirements.txt`
+- Start Command: `uvicorn main:app --host 0.0.0.0 --port $PORT`
+- Instance type: Free
+
+**Frontend:** put the backend address in `frontend/.env.production`, then run:
+```bash
+cd frontend
+npm install
+npm run deploy
+```
+Then, on GitHub, go to **Settings → Pages → Branch: `gh-pages` / root → Save**.
 
 Note: Yahoo Finance sometimes limits requests from cloud servers. If a ticker fails on the live site, wait a minute and retry, or use the CSV upload option.
 
