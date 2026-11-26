@@ -1,5 +1,8 @@
 # StockCast: Stock Price Forecasting Studio
 
+### 🔗 Live demo: https://stock-price-forecasting.onrender.com
+*(Hosted on Render's free plan. If it has been idle, the first load takes about a minute while the server wakes up.)*
+
 A full-stack stock price forecasting app. You choose the stock and all the settings in a web interface. A Python backend trains 6 forecasting models, grades them on data they have never seen, and returns a full report with forecasts, confidence bands, model comparison, technical indicators and risk statistics.
 
 **Tech stack:** Python · FastAPI · pandas · NumPy · scikit-learn · yfinance | React 18 · Vite 5 · Recharts
@@ -69,7 +72,7 @@ pip install --upgrade pip
 pip install -r requirements.txt
 uvicorn main:app --reload --port 8000
 ```
-Leave this window open. Check it at http://localhost:8000/docs.
+Leave this window open. To check it, open `localhost:8000/docs` in your browser (this only works on the computer running the app).
 
 ### 3. Start the frontend (Terminal window 2)
 ```bash
@@ -78,7 +81,7 @@ nvm use 18
 npm install
 npm run dev
 ```
-Open **http://localhost:5173** in your browser.
+Open `localhost:5173` in your browser (this only works on the computer running the app).
 
 ### Next time
 You don't need to install again. Use the two scripts:
@@ -88,6 +91,16 @@ You don't need to install again. Use the two scripts:
 ```
 
 ---
+
+## Deploying online (free, on Render)
+The `Dockerfile` builds the React site and runs it together with the FastAPI backend in a single service.
+
+1. Sign in at https://render.com with GitHub.
+2. Click **New → Web Service** and pick this repository.
+3. Render detects the Dockerfile. Choose the **Free** instance type and click **Create Web Service**.
+4. After about 5–10 minutes the app is live at `https://<service-name>.onrender.com`.
+
+Note: Yahoo Finance sometimes limits requests from cloud servers. If a ticker fails on the live site, wait a minute and retry, or use the CSV upload option.
 
 ## Using a CSV instead of Yahoo
 Choose **Upload CSV** in the app. The file needs a `Date` column and a `Close` column. `Open`, `High`, `Low`, `Adj Close` and `Volume` are optional. NSE bhavcopy-style headers such as `Close Price` and `Total Traded Quantity` are also recognised.

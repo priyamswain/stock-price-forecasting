@@ -102,3 +102,19 @@ async def forecast_csv(
         raise HTTPException(400, str(e))
     model_list = [m.strip() for m in models.split(",") if m.strip()]
     return _run(df, meta, horizon, test_days, model_list, lags, confidence, price_field, risk_free, currency)
+
+
+# --------------------------------------------------------------------------- #
+# Serve the built React app (frontend/dist) from the same server.
+# Used when deployed online; in local development Vite serves the frontend.
+# Mounted last so the /api routes above always win.
+# --------------------------------------------------------------------------- #
+import os
+from fastapi.staticfiles import StaticFiles
+
+FRONTEND_DIST = os.environ.get(
+    "FRONTEND_DIST",
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "frontend", "dist"),
+)
+if os.path.isdir(FRONTEND_DIST):
+    app.mount("/", StaticFiles(directory=FRONTEND_DIST, html=True), name="frontend")
