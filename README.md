@@ -130,6 +130,10 @@ A test file is included: `sample_data/DEMO_SYNTHETIC.csv`. It contains synthetic
 | `npm run dev` crashes | Run `nvm use 18`. Newer Node versions don't run on older macOS. |
 | Fan gets loud | Untick Random Forest / Gradient Boosting, or use a shorter date range. |
 
+
+## 🎬 Demo video
+
+
 ## Project structure
 ```
 stock-forecaster/
