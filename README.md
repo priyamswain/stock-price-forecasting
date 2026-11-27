@@ -134,6 +134,10 @@ A test file is included: `sample_data/DEMO_SYNTHETIC.csv`. It contains synthetic
 ## 🎬 Demo video
 
 
+https://github.com/user-attachments/assets/bbb7ddb0-7976-454c-9b69-1274c762284a
+
+
+
 ## Project structure
 ```
 stock-forecaster/
