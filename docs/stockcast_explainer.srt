@@ -1,0 +1,55 @@
+1
+00:00:00,200 --> 00:00:01,429
+Meet StockCast.
+
+2
+00:00:01,179 --> 00:00:04,100
+A full-stack app that forecasts stock prices.
+
+3
+00:00:04,300 --> 00:00:06,714
+The React frontend on GitHub Pages
+
+4
+00:00:06,464 --> 00:00:08,878
+calls a FastAPI backend on Render,
+
+5
+00:00:08,628 --> 00:00:11,750
+which pulls prices from Yahoo Finance, or a CSV.
+
+6
+00:00:11,950 --> 00:00:14,116
+The backend has five modules:
+
+7
+00:00:13,866 --> 00:00:15,776
+routes, data, six models,
+
+8
+00:00:15,526 --> 00:00:18,050
+a backtest engine, and risk analysis.
+
+9
+00:00:18,250 --> 00:00:20,876
+Each model is tested on days it never saw,
+
+10
+00:00:20,626 --> 00:00:22,424
+ranked by error, then refit
+
+11
+00:00:22,174 --> 00:00:24,850
+to forecast the future, with confidence bands.
+
+12
+00:00:25,050 --> 00:00:27,932
+You get forecasts, technical indicators,
+
+13
+00:00:27,682 --> 00:00:29,473
+and a full risk report.
+
+14
+00:00:29,223 --> 00:00:31,000
+Live on GitHub Pages.
